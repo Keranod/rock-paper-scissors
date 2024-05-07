@@ -10,9 +10,47 @@ const getHumanChoice = () => {
     return humanChoice.toLocaleLowerCase();
 }
 
-let humanChoice = getHumanChoice();
-let humanScore = 0;
-let computerScore = 0;
+const playRound = (humanChoice, computerChoice) => {
+    if (humanChoice === computerChoice) {
+        return null;
+    }
+    if (humanChoice === "rock") {
+        if (computerChoice === "paper") {
+            return "computer";
+        }
+        return "human";
+    }
+    if (humanChoice === "scissors") {
+        if (computerChoice === "rock") {
+            return "computer";
+        }
+        return "human";
+    }
+}
 
-console.log(getComputerChoice())
-console.log(humanChoice)
+const playGame = () => {
+    const rounds = 5;
+
+    let humanScore = 0;
+    let computerScore = 0;
+
+    for(i = 0; i < rounds; i++) {
+        let roundResult = playRound(getHumanChoice(), getComputerChoice());
+        if (roundResult === "human") {
+            humanScore++;
+        } else if (roundResult === "computer") {
+            computerScore++;
+        }
+    }
+    
+    if (humanScore === computerScore) {
+        console.log("It is a Draw!");
+    } else if (humanScore < computerScore) {
+        console.log("You Lose!");
+    } else if (humanScore > computerScore) {
+        console.log("You Win!");
+    }
+}
+
+
+playGame();
